@@ -1,0 +1,6 @@
+{
+    "rubyLsp.rubyVersionManager": {
+        "identifier": "rbenv",
+    },
+    "rubyLsp.formatter": "rubocop"
+}
