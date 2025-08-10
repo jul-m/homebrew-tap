@@ -1,0 +1,60 @@
+# frozen_string_literal: true
+
+# Installs the last version of kcl-language-server
+# Source: https://github.com/kcl-lang/kcl
+# Original tap repo : https://github.com/kcl-lang/homebrew-tap
+#
+class Kcl < Formula
+  desc 'KCL Command Line Interface'
+  homepage 'https://github.com/kcl-lang/kcl'
+  version '0.11.3'
+  license 'Apache License'
+
+  depends_on 'jul-m/tap/kcl-lsp'
+
+  on_macos do
+    on_intel do
+      url 'https://github.com/kcl-lang/cli/releases/download/v0.11.3/kcl-v0.11.3-darwin-amd64.tar.gz', using: CurlDownloadStrategy
+      sha256 '32097fd2905f38ec552e26ae5e62a8a9a4d0d5a389aad08624649d3c4866fe08'
+
+      def install
+        bin.install 'kcl'
+      end
+    end
+    on_arm do
+      url 'https://github.com/kcl-lang/cli/releases/download/v0.11.3/kcl-v0.11.3-darwin-arm64.tar.gz', using: CurlDownloadStrategy
+      sha256 '78607468b936ab4d26026ae085d52c9b0a38fee2ce00f9ae83906ac5ac599450'
+
+      def install
+        bin.install 'kcl'
+      end
+    end
+  end
+
+  on_linux do
+    on_intel do
+      if Hardware::CPU.is_64_bit?
+        url 'https://github.com/kcl-lang/cli/releases/download/v0.11.3/kcl-v0.11.3-linux-amd64.tar.gz', using: CurlDownloadStrategy
+        sha256 '287ef291b201011a2799177b18f4e2d4176814705dd14365eaf2299532b2f784'
+
+        def install
+          bin.install 'kcl'
+        end
+      end
+    end
+    on_arm do
+      if Hardware::CPU.is_64_bit?
+        url 'https://github.com/kcl-lang/cli/releases/download/v0.11.3/kcl-v0.11.3-linux-arm64.tar.gz', using: CurlDownloadStrategy
+        sha256 'd8634eb9c2a6ce2422c8744b3d9d642ca2cb27427465853d8eac4bc0a8081630'
+
+        def install
+          bin.install 'kcl'
+        end
+      end
+    end
+  end
+
+  test do
+    system "#{bin}/kcl version"
+  end
+end
