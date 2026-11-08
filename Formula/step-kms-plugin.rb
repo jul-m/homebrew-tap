@@ -42,7 +42,8 @@ class StepKmsPlugin < Formula
     # `step <plugin> <TAB>` for any `step-<name>-plugin` executable in $PATH to that plugin's completion.
     # The tap is required to locate the file.
     odie "step-kms-plugin must be installed from a tap (share/step/ is read from the tap)" unless tap
-    pkgshare.install tap.path/"share/step/step-plugins-completion.zsh"
+    pkgshare.mkpath
+    cp tap.path/"share/step/step-plugins-completion.zsh", pkgshare
   end
 
   def caveats
