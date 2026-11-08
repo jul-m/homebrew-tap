@@ -6,7 +6,7 @@
 class StepKmsPlugin < Formula
   desc "Plugin for the step CLI to use cloud KMS and hardware keys"
   homepage "https://github.com/smallstep/step-kms-plugin"
-  version "0.17.0"
+  version "0.17.0-1"
   license "Apache-2.0"
 
   on_macos do

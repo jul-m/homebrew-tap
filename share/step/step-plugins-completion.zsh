@@ -56,8 +56,21 @@ _step_with_plugins() {
     _describe 'values' opts
     return
   fi
-  _step
+  # Native subcommands and flags, as the native `_step` lists them. `_step` is not called: its file binds `step`
+  # to itself when it is loaded (last line `compdef _step step`), and its first call completes nothing.
+  local -a opts=() n
+  local cur=${words[-1]}
+  if [[ $cur == -* ]]; then
+    opts=("${(@f)$(_CLI_ZSH_AUTOCOMPLETE_HACK=1 ${words[@]:0:#words[@]-1} ${cur} --generate-bash-completion)}")
+  else
+    opts=("${(@f)$(_CLI_ZSH_AUTOCOMPLETE_HACK=1 ${words[@]:0:#words[@]-1} --generate-bash-completion)}")
+  fi
+  opts=(${opts:#})
+  if (( ${#opts} )); then
+    _describe 'values' opts
+  else
+    _files
+  fi
 }
 
-autoload -Uz _step
 compdef _step_with_plugins step
